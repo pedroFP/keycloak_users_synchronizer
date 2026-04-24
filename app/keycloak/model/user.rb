@@ -30,6 +30,10 @@ class Keycloak::User < Keycloak::UserApi
                 :keycloak_ad_id,
                 :keycloak_ad_dn
 
+  # TODO: build metho to fetch the users user_group
+
+  private
+
   def self.init_from_params(params)
     user = new
 

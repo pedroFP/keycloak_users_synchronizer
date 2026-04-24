@@ -8,7 +8,6 @@ class Keycloak::UserGroup < Keycloak::UserGroupApi
 
   def self.init_from_params(params)
     user_group = new
-
     user_group.id = params['id']
     user_group.name = params['name']
     user_group.path = params['path']

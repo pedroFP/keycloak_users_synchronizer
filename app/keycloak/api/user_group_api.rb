@@ -1,6 +1,6 @@
 class Keycloak::UserGroupApi
   class << self
-    def all(user_id)
+    def all(user_id:)
       call(user_id)
     end
 
