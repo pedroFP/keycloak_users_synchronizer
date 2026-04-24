@@ -1,3 +1,11 @@
+# Start services
+- keycloak
+- Kafka
+
+```bash
+docker compose up -d
+```
+
 # Keycloack service
 
 Sign in to `master` realm
