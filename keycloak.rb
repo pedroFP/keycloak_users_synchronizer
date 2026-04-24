@@ -4,8 +4,7 @@ require 'net/http'
 require 'openssl'
 require 'dotenv/load'
 
-# Namespace for Keycloak HTTP client classes.
-class Keycloak
+module Keycloak
   BASE_URL = ENV.fetch('KEYCLOAK_BASE_URL', 'http://localhost:8080').freeze
   REALM = ENV.fetch('KEYCLOAK_REALM').freeze
 end
