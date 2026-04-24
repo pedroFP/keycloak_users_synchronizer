@@ -1,0 +1,45 @@
+# Manages Keycloak access token generation to request API endpoints
+#
+# @example
+#   token = Keycloak::AccessTokenGenerator.call
+
+class Keycloak::AccessTokenGenerator
+  def self.call
+    new.access_token
+  end
+
+  def access_token
+    @access_token ||= generate_access_token
+  end
+
+  private
+
+  def generate_access_token
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = false # TODO: handle when envorionment is PRODUCTION
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Post.new(url)
+    request['Content-Type'] = 'application/x-www-form-urlencoded'
+    request.body = URI.encode_www_form(body)
+
+    response = http.request(request)
+    return false unless response.code == '200'
+
+    JSON.parse(response.read_body)['access_token']
+  end
+
+  def body
+    {
+      client_id: ENV.fetch('KEYCLOAK_CLIENT_ID', 'admin-cli'),
+      username: ENV.fetch('KEYCLOAK_ADMIN_USERNAME'),
+      password: ENV.fetch('KEYCLOAK_ADMIN_PASSWORD'),
+      grant_type: 'password'
+    }
+  end
+
+  def url
+    base = ENV.fetch('KEYCLOAK_BASE_URL', 'http://localhost:8080')
+    @url ||= URI("#{base}/realms/master/protocol/openid-connect/token")
+  end
+end
