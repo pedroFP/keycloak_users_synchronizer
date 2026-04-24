@@ -3,7 +3,7 @@
 
 require 'irb'
 require 'irb/completion'
-require_relative '../keycloak/keycloak'
+require_relative '../keycloak'
 
 puts "Keycloak console — all classes loaded."
 puts "  Keycloak::AccessTokenGenerator.call"

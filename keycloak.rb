@@ -7,5 +7,5 @@ require 'dotenv/load'
 # Namespace for Keycloak HTTP client classes.
 class Keycloak; end
 
-require_relative 'access_token_generator'
-require_relative 'realm'
+require_relative 'keycloak/access_token_generator'
+require_relative 'keycloak/realm'
