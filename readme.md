@@ -28,3 +28,21 @@ curl -H "Authorization: Bearer $TOKEN" \
 http://localhost:8080/admin/realms/myrealm/users
 ```
 
+# Test in Console
+
+```bash
+⢀⡴⠊⢉⡟⢿ 
+⣎⣀⣴⡋⡟⣻ 
+⣟⣼⣱⣽⣟⣾ 
+
+$ bin/console
+```
+
+```ruby
+# i.e get users
+
+users = Keycloak::User.limit(10)
+
+user = users.first
+
+```
