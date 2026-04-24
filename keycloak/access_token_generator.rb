@@ -5,7 +5,11 @@
 
 class Keycloak::AccessTokenGenerator
   def self.call
-    new.generate_access_token
+    new.access_token
+  end
+
+  def access_token
+    @access_token ||= generate_access_token
   end
 
   private
