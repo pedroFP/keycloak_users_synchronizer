@@ -3,6 +3,8 @@
 # This file is auto-generated during the install process.
 # If by any chance you've wanted a setup for Rails app, either run the `karafka:install`
 # command again or refer to the install templates available in the source codes
+require 'dotenv/load'
+
 
 ENV['KARAFKA_ENV'] ||= 'development'
 Bundler.require(:default, ENV['KARAFKA_ENV'])
@@ -17,8 +19,9 @@ APP_LOADER.eager_load
 
 class KarafkaApp < Karafka::App
   setup do |config|
-    config.kafka = { 'bootstrap.servers': '127.0.0.1:9092' }
-    config.client_id = "YOUR_APP_NAME-#{Process.pid}-#{Socket.gethostname}"
+    config.kafka = { 'bootstrap.servers': ENV["KAFKA_BOOTSTRAP_SERVERS"] }
+    config.client_id = ENV["KAFKA_CLIENT_ID"]
+    # config.logger.level = ::Logger::WARN
 
     # IMPORTANT: Customize this group_id with your application name.
     # The group_id should be unique per application to properly track message consumption.
