@@ -19,7 +19,7 @@ rescue Bundler::GemNotFound, LoadError => e
   exit 1
 end
 
-WIDTH = 52
+WIDTH = 61
 
 def box_line(content = '')
   pad = WIDTH - content.length - 2
@@ -44,6 +44,8 @@ puts box_line('    Keycloak::UserApi')
 puts box_line('    Keycloak::UserGroupApi')
 puts box_line('    Keycloak::Service::AccessTokenGenerator')
 puts box_line
+puts box_line('    SyncKeycloakUsers')
+puts box_line
 puts box_line('  Helpers')
 puts box_line('    reload!  ->  reload all app classes')
 puts box_line
@@ -51,6 +53,7 @@ puts box_line('  Example')
 puts box_line('    Keycloak::User.where(email: "user@user.com").limit(100)')
 puts box_line('    Keycloak::User.page(1).limit(100)')
 puts box_line
+puts box_line('    SyncKeycloakUsers.call')
 puts divider
 puts
 
