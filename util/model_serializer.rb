@@ -6,4 +6,8 @@ module ModelSerializer
       hash[var.to_s.delete('@')] = instance_variable_get(var)
     end
   end
+
+  def to_h
+    serializable_hash
+  end
 end
