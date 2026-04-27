@@ -1,5 +1,4 @@
 # Service in charge of producing a kafka message for each Keycloak user
-
 class SyncKeycloakUsers
   USERS_PER_PAGE = 100
 

@@ -34,7 +34,8 @@ class KarafkaApp < Karafka::App
     #
     # For more details on consumer groups and routing configuration, please refer to the
     # Karafka documentation: https://karafka.io/docs
-    config.group_id = 'YOUR_APP_NAME_consumer'
+    config.group_id = 'keycloak_users_synchronizer'
+    config.strict_topics_namespacing = false
   end
 
   # Comment out this part if you are not using instrumentation and/or you are not
@@ -85,12 +86,9 @@ class KarafkaApp < Karafka::App
 
   # INFO: To test the that the producer is sending the messages you can create a custom consumer
   routes.draw do
-    topic 'sync.keycloak.users' do
-      # Uncomment this if you want Karafka to manage your topics configuration
-      # Managing topics configuration via routing will allow you to ensure config consistency
-      # across multiple environments
-      #
-      # config(partitions: 2, 'cleanup.policy': 'compact')
+
+    topic 'keycloak.users_sync' do
+      config(partitions: 1, replication_factor: 1)
       consumer RequestUsersSyncConsumer
     end
 
