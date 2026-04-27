@@ -8,7 +8,7 @@ class Keycloak::UserApi
       url = self.url
       url_params = URI.decode_www_form(url.query || "") + { max: number }.to_a
 
-      define_singleton_method(:url) do
+      define_singleton_method(:base_url) do
         url.query = URI.encode_www_form(url_params)
         url
       end
@@ -23,7 +23,7 @@ class Keycloak::UserApi
       url = self.url
       url_params = URI.decode_www_form(url.query || "") + params.to_a
 
-      define_singleton_method(:url) do
+      define_singleton_method(:base_url) do
         url.query = URI.encode_www_form(url_params)
         url
       end
@@ -39,7 +39,7 @@ class Keycloak::UserApi
       url = self.url
       url_params = URI.decode_www_form(url.query || "") + { first: offset }.to_a
 
-      define_singleton_method(:url) do
+      define_singleton_method(:base_url) do
         url.query = URI.encode_www_form(url_params)
         url
       end
@@ -47,16 +47,27 @@ class Keycloak::UserApi
       self
     end
 
+    def count
+      api URI("#{Keycloak::BASE_URL}/admin/realms/#{Keycloak::REALM}/users/count")
+    end
+
     private
 
-    def url
+    def call
+      data = api(base_url)
+
+      reset_url!
+
+      KeycloakRecordRelation.new(data.map { |attributes| init_from_params(attributes) })
+    end
+
+    def base_url
       URI("#{Keycloak::BASE_URL}/admin/realms/#{Keycloak::REALM}/users")
     end
 
-
-    def call
+    def api(url)
       http = Net::HTTP.new(url.host, url.port)
-      http.use_ssl = true # TODO: handle when envorionment is PRODUCTION
+      http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
       request = Net::HTTP::Get.new(url)
@@ -64,15 +75,11 @@ class Keycloak::UserApi
       request['Authorization'] = "Bearer #{Keycloak::AccessTokenGenerator.call}"
 
       response = http.request(request)
-      data = JSON.parse(response.read_body)
-
-      reset_url!
-
-      KeycloakRecordRelation.new(data.map { |attributes| init_from_params(attributes) })
+      JSON.parse(response.read_body)
     end
 
     def reset_url!
-      define_singleton_method(:url) do
+      define_singleton_method(:base_url) do
         URI("#{Keycloak::BASE_URL}/admin/realms/#{Keycloak::REALM}/users")
       end
     end
