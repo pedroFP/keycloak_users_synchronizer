@@ -1,9 +1,14 @@
 # Start services
-- keycloak
+- Keycloak
 - Kafka
 
 ```bash
 docker compose up -d
+```
+
+# Start Karafka Server
+```bash
+bin/dev
 ```
 
 # Keycloack service
@@ -46,5 +51,10 @@ users = Keycloak::User.limit(10)
 user = users.first
 
 user_id = user.keycloak_id
-Keycloak::UserGroup.all(user_id: user.keycloak_id)
+Keycloak::UserGroup.all(user_id: user_id)
+
+
+# trigger service to sync from Keycloak
+SyncKeycloakUsers.call
 ```
+
