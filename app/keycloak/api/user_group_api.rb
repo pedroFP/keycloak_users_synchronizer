@@ -24,7 +24,7 @@ class Keycloak::UserGroupApi
       response = http.request(request)
       data = JSON.parse(response.read_body)
 
-      data.map { |attributes| init_from_params(attributes) }
+      KeycloakRecord.new(data.map { |attributes| init_from_params(attributes) })
     end
 
 
