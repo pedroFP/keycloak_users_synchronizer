@@ -53,8 +53,13 @@ user = users.first
 user_id = user.keycloak_id
 Keycloak::UserGroup.all(user_id: user_id)
 
+```
 
-# trigger service to sync from Keycloak
-SyncKeycloakUsers.call
+# Trigger sync through Karafka
+
+```ruby
+Karafka.producer.produce_sync(topic: 'keycloak.users_sync', payload: {}.to_json, key: '')
+# │
+# └── Will trigger service to sync users from Keycloak => SyncKeycloakUsers.call
 ```
 
