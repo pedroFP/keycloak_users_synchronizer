@@ -6,13 +6,29 @@ class Keycloak::UserApi
 
     def limit(number)
       url = self.url
+      url_params = URI.decode_www_form(url.query || "") + { max: number }.to_a
 
       define_singleton_method(:url) do
-        url.query = URI.encode_www_form(max: number)
+        url.query = URI.encode_www_form(url_params)
         url
       end
 
       call
+    end
+
+    def where(params)
+      # INFO: refer to the docs to see which arguments are available 
+      # https://www.keycloak.org/docs-api/latest/rest-api/index.html#_get_adminrealmsrealmusers
+
+      url = self.url
+      url_params = URI.decode_www_form(url.query || "") + params.to_a
+
+      define_singleton_method(:url) do
+        url.query = URI.encode_www_form(url_params)
+        url
+      end
+
+      self
     end
 
     private
@@ -34,7 +50,15 @@ class Keycloak::UserApi
       response = http.request(request)
       data = JSON.parse(response.read_body)
 
+      reset_url!
+
       data.map { |attributes| init_from_params(attributes) }
+    end
+
+    def reset_url!
+      define_singleton_method(:url) do
+        URI("#{Keycloak::BASE_URL}/admin/realms/#{Keycloak::REALM}/users")
+      end
     end
 
     def init_from_params
