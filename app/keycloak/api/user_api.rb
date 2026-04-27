@@ -5,7 +5,10 @@ class Keycloak::UserApi
     end
 
     def limit(number)
-      url = self.url
+      # INFO: `max` Maximum results size (defaults to 100)
+      # https://www.keycloak.org/docs-api/latest/rest-api/index.html#_query_parameters_72
+
+      url = self.base_url
       url_params = URI.decode_www_form(url.query || "") + { max: number }.to_a
 
       define_singleton_method(:base_url) do
@@ -20,7 +23,7 @@ class Keycloak::UserApi
       # INFO: refer to the docs to see which arguments are available 
       # https://www.keycloak.org/docs-api/latest/rest-api/index.html#_query_parameters_72
 
-      url = self.url
+      url = self.base_url
       url_params = URI.decode_www_form(url.query || "") + params.to_a
 
       define_singleton_method(:base_url) do
@@ -36,7 +39,7 @@ class Keycloak::UserApi
       # INFO: `first` is the Pagination offset
       # https://www.keycloak.org/docs-api/latest/rest-api/index.html#_query_parameters_72
 
-      url = self.url
+      url = self.base_url
       url_params = URI.decode_www_form(url.query || "") + { first: offset }.to_a
 
       define_singleton_method(:base_url) do
@@ -54,6 +57,7 @@ class Keycloak::UserApi
     private
 
     def call
+      puts base_url
       data = api(base_url)
 
       reset_url!
