@@ -83,16 +83,17 @@ class KarafkaApp < Karafka::App
   #   ErrorTracker.send_error(error, type, details)
   # end
 
-  routes.draw do
-    topic :example do
-      # Uncomment this if you want Karafka to manage your topics configuration
-      # Managing topics configuration via routing will allow you to ensure config consistency
-      # across multiple environments
-      #
-      # config(partitions: 2, 'cleanup.policy': 'compact')
-      consumer ExampleConsumer
-    end
-  end
+  # INFO: To test the that the producer is sending the messages you can create a custom consumer
+  # routes.draw do
+  #   topic 'keycloak.users' do
+  #     # Uncomment this if you want Karafka to manage your topics configuration
+  #     # Managing topics configuration via routing will allow you to ensure config consistency
+  #     # across multiple environments
+  #     #
+  #     # config(partitions: 2, 'cleanup.policy': 'compact')
+  #     consumer ExampleConsumer
+  #   end
+  # end
 end
 
 # Karafka now features a Web UI!
