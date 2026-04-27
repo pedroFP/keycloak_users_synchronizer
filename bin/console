@@ -10,4 +10,11 @@ puts "  Keycloak::AccessTokenGenerator.call"
 puts "  Keycloak::Realm.new('myrealm').users"
 puts
 
+def reload!
+  root = File.expand_path('..', __dir__)
+  load File.join(root, 'util', 'model_serializer.rb')
+  Dir[File.join(root, 'app', '**', '*.rb')].each { |f| load f }
+  true
+end
+
 IRB.start(__FILE__)

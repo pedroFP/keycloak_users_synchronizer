@@ -6,6 +6,8 @@ class Keycloak::UserGroup < Keycloak::UserGroupApi
                 :path,
                 :subGroups
 
+  private
+
   def self.init_from_params(params)
     user_group = new
     user_group.id = params['id']
