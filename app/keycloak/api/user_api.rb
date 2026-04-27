@@ -52,7 +52,7 @@ class Keycloak::UserApi
 
       reset_url!
 
-      KeycloakRecord.new(data.map { |attributes| init_from_params(attributes) })
+      KeycloakRecordRelation.new(data.map { |attributes| init_from_params(attributes) })
     end
 
     def reset_url!

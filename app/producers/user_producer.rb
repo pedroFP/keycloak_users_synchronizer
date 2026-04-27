@@ -3,9 +3,9 @@ class UserProducer
 
   KAFKA_TOPIC = 'keycloak.users'.freeze
 
-  def initialize(payload)
-    @payload = payload
-    @key = payload['id']
+  def initialize(user)
+    @payload = payload.to_h
+    @key = user.keycloak_id
   end
   
   def produce

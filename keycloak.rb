@@ -7,7 +7,7 @@ require 'openssl'
 require 'dotenv/load'
 require 'active_model'
 require 'karafka'
-require_relative 'util/keycloak_record'
+require_relative 'util/keycloak_record_relation'
 require_relative 'util/model_serializer'
 require_relative 'karafka'
 
