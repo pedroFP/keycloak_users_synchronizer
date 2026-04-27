@@ -8,6 +8,8 @@ require 'dotenv/load'
 require 'active_model'
 require 'karafka'
 # require 'pry'
+
+require_relative 'config/require_env_variables.rb'
 require_relative 'util/keycloak_record_relation'
 require_relative 'util/model_serializer'
 require_relative 'karafka'
