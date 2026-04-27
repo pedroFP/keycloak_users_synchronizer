@@ -6,13 +6,17 @@ class Keycloak::UserGroupApi
 
     private
 
-    def url(user_id)
+    def base_url(user_id)
       URI("#{Keycloak::BASE_URL}/admin/realms/#{Keycloak::REALM}/users/#{user_id}/groups")
     end
 
     def call(user_id)
-      url = url(user_id)
+      data = api(base_url(user_id))
 
+      KeycloakRecordRelation.new(data.map { |attributes| init_from_params(attributes) })
+    end
+
+    def api(url)
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -22,9 +26,7 @@ class Keycloak::UserGroupApi
       request['Authorization'] = "Bearer #{Keycloak::AccessTokenGenerator.call}"
 
       response = http.request(request)
-      data = JSON.parse(response.read_body)
-
-      KeycloakRecordRelation.new(data.map { |attributes| init_from_params(attributes) })
+      JSON.parse(response.read_body)
     end
 
 
