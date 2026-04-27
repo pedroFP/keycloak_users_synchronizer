@@ -40,8 +40,8 @@ puts box_line
 puts box_line('  Classes loaded')
 puts box_line('    Keycloak::User')
 puts box_line('    Keycloak::UserGroup')
-puts box_line('    Keycloak::Api::UserApi')
-puts box_line('    Keycloak::Api::UserGroupApi')
+puts box_line('    Keycloak::UserApi')
+puts box_line('    Keycloak::UserGroupApi')
 puts box_line('    Keycloak::Service::AccessTokenGenerator')
 puts box_line
 puts box_line('  Helpers')
@@ -55,7 +55,9 @@ puts
 
 def reload!
   root = File.expand_path('..', __dir__)
-  load File.join(root, 'util', 'model_serializer.rb')
+  # First util
+  Dir[File.join(root, 'util', '**', '*.rb')].each { |f| load f }
+
   Dir[File.join(root, 'app', '**', '*.rb')].each { |f| load f }
   true
 end
