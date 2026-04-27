@@ -1,6 +1,7 @@
 # Start services
 - Keycloak
 - Kafka
+- keycloak-users-synchronizer
 
 ```bash
 docker compose up -d
