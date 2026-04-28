@@ -7,12 +7,9 @@
         - APP_USER_UID=1011 # user should be created in host with: sudo useradd -r -u 1011 -g app_group app_user
     image: registryqa.aquaporservicos.pt:5000/keycloak_users_synchronizer_qa:latest
     command: bin/start
-    env_file:
-      - .env
     environment: # Goes directly to ENV inside container (cachtes env from azure ci)
       - TZ=Europe/Lisbon
       - DOCKER=true
-      - KARAFKA_ENV=staging
     networks:
       kafka_network:
     logging:
