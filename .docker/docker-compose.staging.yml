@@ -1,7 +1,10 @@
   keycloak-users-synchronizer:
-    args: # Goes to dockerfile ARGS (needs to have $ARG to catch this value)
-      - APP_USER_GID=1010 # group should be created in host with: sudo groupadd -g 1010 app_group
-      - APP_USER_UID=1011 # user should be created in host with: sudo useradd -r -u 1011 -g app_group app_user
+    build:
+      context: ..
+      dockerfile: .docker/Dockerfile
+      args: # Goes to dockerfile ARGS (needs to have $ARG to catch this value)
+        - APP_USER_GID=1010 # group should be created in host with: sudo groupadd -g 1010 app_group
+        - APP_USER_UID=1011 # user should be created in host with: sudo useradd -r -u 1011 -g app_group app_user
     image: registryqa.aquaporservicos.pt:5000/keycloak_users_synchronizer_qa:latest
     command: bin/start
     environment: # Goes directly to ENV inside container (cachtes env from azure ci)
