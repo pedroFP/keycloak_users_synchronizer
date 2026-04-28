@@ -48,9 +48,6 @@ class Keycloak::AccessTokenGenerator
   end
 
   def url
-    base  = ENV.fetch('KEYCLOAK_BASE_URL')
-    realm = ENV.fetch('KEYCLOAK_REALM')
-
-    @url ||= URI("#{base}/realms/#{realm}/protocol/openid-connect/token")
+    @url ||= URI("#{Keycloak::BASE_URL}/realms/#{Keycloak::REALM}/protocol/openid-connect/token")
   end
 end
