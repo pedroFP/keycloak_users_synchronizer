@@ -23,8 +23,8 @@ WORKDIR /app
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /app .
 
-RUN chmod +x bin/dev
+RUN chmod +x bin/start
 
 ENV KARAFKA_ENV=production
 
-CMD ["bin/dev"]
+CMD ["bin/start"]

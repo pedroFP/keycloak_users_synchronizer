@@ -9,7 +9,7 @@ docker compose up -d
 
 # Start Karafka Server
 ```bash
-bin/dev
+bin/start
 ```
 
 # Keycloack service
