@@ -48,4 +48,4 @@ services:
           memory: 500m
 networks:
   kafka_network:
-
+    external: true
