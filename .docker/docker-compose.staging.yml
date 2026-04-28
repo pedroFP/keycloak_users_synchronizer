@@ -35,8 +35,8 @@
         delay: 10s
       placement:
         max_replicas_per_node: 1
-          constraints:
-            - "node.role == manager"
+        constraints:
+          - "node.role == manager"
       restart_policy:
         condition: on-failure
         delay: 10s
