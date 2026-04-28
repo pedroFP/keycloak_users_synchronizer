@@ -51,6 +51,8 @@ class Keycloak::UserApi
     end
 
     def count
+      # INFO: Returns the number of users that match the given criteria
+      # https://www.keycloak.org/docs-api/latest/rest-api/index.html#_get_adminrealmsrealmuserscount
       api URI("#{Keycloak::BASE_URL}/admin/realms/#{Keycloak::REALM}/users/count")
     end
 
