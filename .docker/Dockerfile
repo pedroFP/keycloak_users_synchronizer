@@ -36,6 +36,7 @@ WORKDIR /app
 COPY --chown=app_user:app_group --from=build /usr/local/bundle /usr/local/bundle
 COPY --chown=app_user:app_group --from=build /app .
 
+RUN chmod +x bin/console
 RUN chmod +x bin/start
 
 # Switch to application user
