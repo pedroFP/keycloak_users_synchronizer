@@ -10,7 +10,6 @@ services:
     command: bin/start
     environment:
       TZ: Europe/Lisbon
-      DOCKER: true
       KEYCLOAK_BASE_URL: ${KEYCLOAK_BASE_URL}
       KEYCLOAK_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
       KEYCLOAK_CLIENT_SECRET: ${KEYCLOAK_CLIENT_SECRET}
