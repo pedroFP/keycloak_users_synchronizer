@@ -1,5 +1,5 @@
 services:
-  keycloak-users-synchronizer:
+  backend:
     build:
       context: ..
       dockerfile: .docker/Dockerfile
